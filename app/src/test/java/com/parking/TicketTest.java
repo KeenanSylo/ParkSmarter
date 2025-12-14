@@ -26,4 +26,20 @@ class TicketTest {
 
         assertNotNull(ticket.getId(), "Ticket should have a unique ID");
     }
+
+    @Test
+    void shouldStartUnpaid() { // New ticket should be unpaid
+        Ticket ticket = new Ticket(LocalDateTime.now());
+        
+        assertFalse(ticket.isPaid(), "New ticket should be unpaid");
+    }
+
+    @Test
+    void shouldUpdateStatus_WhenMarkedPaid() { // Then update status when marked paid
+        Ticket ticket = new Ticket(LocalDateTime.now());
+        
+        ticket.markPaid();
+        
+        assertTrue(ticket.isPaid(), "Ticket should be paid after marking it");
+    }
 }
