@@ -34,6 +34,9 @@ public class Ticket {
     }
 
     public void markPaid() {
+        if (this.isPaid) {
+            throw new IllegalStateException("Ticket is already paid");
+        }
         this.isPaid = true;
     }
 }
