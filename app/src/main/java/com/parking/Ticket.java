@@ -1,5 +1,5 @@
 package com.parking;
 
-public class Main {
+public class Ticket {
     
 }
