@@ -14,4 +14,9 @@ class TicketTest {
 
         assertEquals(testTime, ticket.getEntryTime(), "The ticket should store the correct entry time");
     }
+
+    @Test
+    void shouldThrowException_WhenEntryTimeIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> new Ticket(null));
+    }
 }
