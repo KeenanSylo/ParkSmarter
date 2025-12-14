@@ -19,4 +19,11 @@ class TicketTest {
     void shouldThrowException_WhenEntryTimeIsNull() {
         assertThrows(IllegalArgumentException.class, () -> new Ticket(null));
     }
+
+    @Test
+    void shouldHaveUniqueId() {
+        Ticket ticket = new Ticket(LocalDateTime.now());
+
+        assertNotNull(ticket.getId(), "Ticket should have a unique ID");
+    }
 }
