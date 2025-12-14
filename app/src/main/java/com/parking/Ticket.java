@@ -7,6 +7,7 @@ public class Ticket {
     
     private final LocalDateTime entryTime;
     private final UUID id;
+    private boolean isPaid;
 
     // Constructor
     public Ticket(LocalDateTime entryTime) {
@@ -15,6 +16,7 @@ public class Ticket {
         }
         this.entryTime = entryTime;
         this.id = UUID.randomUUID();
+        this.isPaid = false;
     }
 
     // Getter for entryTime
@@ -25,5 +27,13 @@ public class Ticket {
     // Getter for id
     public UUID getId() {
         return id;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void markPaid() {
+        this.isPaid = true;
     }
 }
