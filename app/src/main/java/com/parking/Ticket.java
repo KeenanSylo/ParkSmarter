@@ -8,6 +8,9 @@ public class Ticket {
 
     // Constructor
     public Ticket(LocalDateTime entryTime) {
+        if (entryTime == null) {
+            throw new IllegalArgumentException("Entry time cannot be null");
+        }
         this.entryTime = entryTime;
     }
 
