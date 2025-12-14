@@ -42,4 +42,14 @@ class TicketTest {
         
         assertTrue(ticket.isPaid(), "Ticket should be paid after marking it");
     }
+
+    @Test
+    void shouldThrowException_WhenPaidTwice() {
+        Ticket ticket = new Ticket(LocalDateTime.now());
+        ticket.markPaid();
+
+        // Pay again then it will throw exception
+        assertThrows(IllegalStateException.class, () -> {ticket.markPaid(); 
+        }, "Should throw exception if ticket is already paid");
+    }
 }
