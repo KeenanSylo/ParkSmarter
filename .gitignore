@@ -1,0 +1,27 @@
+# Gradle files
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Java class files
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# VScode
+.vscode/
+bin/
+
+# MacOS
+.DS_Store
+
+# Eclipse
+.classpath
+.project
+.settings/
