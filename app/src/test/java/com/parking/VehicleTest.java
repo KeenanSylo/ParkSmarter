@@ -15,4 +15,15 @@ public class VehicleTest {
     assertEquals("Red", car.getColor());
     assertTrue(car.isElectric(), "Should be identified as electric");
   }
+
+  @Test
+  void testGasVehicleCreation() {
+    Vehicle truck = new Vehicle("XYZ-999", "Ford", "F-150", "Blue", false);
+
+    assertEquals("XYZ-999", truck.getLicensePlate());
+    assertEquals("Ford", truck.getBrand());
+    assertEquals("F-150", truck.getModel());
+    assertEquals("Blue", truck.getColor());
+    assertFalse(truck.isElectric(), "Should NOT be electric");
+  }
 }
