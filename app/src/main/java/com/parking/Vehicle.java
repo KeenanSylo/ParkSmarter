@@ -9,8 +9,8 @@ public class Vehicle {
     private final boolean isElectric;
 
     public Vehicle(String licensePlate, String brand, String model, String color, boolean isElectric) {
-        if (licensePlate == null || licensePlate.isEmpty() || licensePlate.isBlank()) {
-            throw new IllegalArgumentException("License plate cannot be null or empty");
+        if (licensePlate == null || licensePlate.isBlank()) {
+            throw new IllegalArgumentException("License plate cannot be null or blank");
         }
         
         this.licensePlate = licensePlate;
