@@ -9,6 +9,10 @@ public class Vehicle {
     private final boolean isElectric;
 
     public Vehicle(String licensePlate, String brand, String model, String color, boolean isElectric) {
+        if (licensePlate == null) {
+            throw new IllegalArgumentException("License plate cannot be null");
+        }
+        
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.model = model;
