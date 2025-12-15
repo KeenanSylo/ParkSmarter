@@ -18,12 +18,26 @@ public class VehicleTest {
 
   @Test
   void testGasVehicleCreation() {
-    Vehicle truck = new Vehicle("XYZ-999", "Ford", "F-150", "Blue", false);
+    Vehicle truck = new Vehicle("ABC-999", "Ford", "F-150", "Blue", false);
 
-    assertEquals("XYZ-999", truck.getLicensePlate());
+    assertEquals("ABC-999", truck.getLicensePlate());
     assertEquals("Ford", truck.getBrand());
     assertEquals("F-150", truck.getModel());
     assertEquals("Blue", truck.getColor());
     assertFalse(truck.isElectric(), "Should NOT be electric");
+  }
+
+  @Test
+  void licensePlateCannotBeNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+        new Vehicle(null, "Ford", "Mustang", "Black", false);
+    }, "Should verify license plate is not null");
+  }
+
+  @Test
+  void licensePlateCannotBeEmpty() {
+    assertThrows(IllegalArgumentException.class, () -> {
+        new Vehicle("", "Ford", "Mustang", "Black", false);
+    }, "Should verify license plate is not empty");
   }
 }
