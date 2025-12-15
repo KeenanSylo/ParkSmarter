@@ -2,7 +2,6 @@ package com.parking;
 
 public class GarageSpot {
     private final int id;
-    private boolean isEmpty;
     private Vehicle parkedVehicle;
 
     public GarageSpot(int id) {
