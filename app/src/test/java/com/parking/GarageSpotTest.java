@@ -20,8 +20,7 @@ class GarageSpotTest {
     @Test
     void shouldBecomeOccupied() { // Spot become occupied
         GarageSpot spot = new GarageSpot(1);
-        
-        spot.occupy();
+        assertTrue(spot.occupy(), "Occupy should return true on empty spot");
         
         assertFalse(spot.isEmpty(), "Spot should NOT be empty after occupy");
     }
@@ -29,8 +28,8 @@ class GarageSpotTest {
     @Test
     void shouldBecomeEmptyWhenVacated() { // Spot become empty when vacated
         GarageSpot spot = new GarageSpot(1);
-        spot.occupy(); 
-        spot.vacate();
+        assertTrue(spot.occupy(), "occupy should succeed");
+        assertTrue(spot.vacate(), "Vacate should return true on occupied spot");
 
         assertTrue(spot.isEmpty(), "Spot should be empty after vacate");
     }
@@ -38,7 +37,7 @@ class GarageSpotTest {
     @Test
     void shouldReturnFalseWhenOccupyingFullSpot() {
         GarageSpot spot = new GarageSpot(1);
-        spot.occupy(); // First time works
+        assertTrue(spot.occupy(), "Setup: first occupy should succeed");
 
         // Second time fails
         boolean result = spot.occupy();
