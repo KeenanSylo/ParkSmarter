@@ -40,4 +40,11 @@ public class VehicleTest {
         new Vehicle("", "Ford", "Mustang", "Black", false);
     }, "Should verify license plate is not empty");
   }
+
+  @Test
+  void licensePlateCannotBeBlank() {
+    assertThrows(IllegalArgumentException.class, () -> {
+        new Vehicle("   ", "Ford", "Mustang", "Black", false);
+    }, "Should verify license plate is not whitespace only");
+  }
 }
