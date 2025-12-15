@@ -16,4 +16,22 @@ class GarageSpotTest {
         GarageSpot spot = new GarageSpot(1);
         assertTrue(spot.isEmpty(), "New spot should be free");
     }
+
+    @Test
+    void shouldBecomeOccupied() { // Spot become occupied
+        GarageSpot spot = new GarageSpot(1);
+        
+        spot.occupy();
+        
+        assertFalse(spot.isEmpty(), "Spot should NOT be empty after occupy");
+    }
+
+    @Test
+    void shouldBecomeEmptyWhenVacated() { // Spot become empty when vacated
+        GarageSpot spot = new GarageSpot(1);
+        spot.occupy(); 
+        spot.vacate();
+
+        assertTrue(spot.isEmpty(), "Spot should be empty after vacate");
+    }
 }
