@@ -16,4 +16,12 @@ public class GarageSpot {
     public boolean isEmpty() {
         return isEmpty;
     }
+
+    public void occupy() {
+        this.isEmpty = false;
+    }
+
+    public void vacate() {
+        this.isEmpty = true;
+    }
 }
