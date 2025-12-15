@@ -3,10 +3,12 @@ package com.parking;
 public class GarageSpot {
     private final int id;
     private boolean isEmpty;
+    private Vehicle parkedVehicle;
 
     public GarageSpot(int id) {
         this.id = id;
         this.isEmpty = true;
+        this.parkedVehicle = null;
     }
 
     public int getId() {
@@ -17,11 +19,11 @@ public class GarageSpot {
         return isEmpty;
     }
 
-    public boolean occupy() {
+    public boolean occupy(Vehicle vehicle) {
         if (!this.isEmpty) {
             return false; // Already occupied
         }
-        this.isEmpty = false;
+        this.parkedVehicle = vehicle;
         return true; // Success
     }
 
@@ -29,7 +31,12 @@ public class GarageSpot {
         if (this.isEmpty) {
             return false; // Already empty
         }
-        this.isEmpty = true;
+        this.parkedVehicle = null;
         return true; // Success
+    }
+
+    // Getter to see which car is parked
+    public Vehicle getParkedVehicle() {
+        return parkedVehicle;
     }
 }

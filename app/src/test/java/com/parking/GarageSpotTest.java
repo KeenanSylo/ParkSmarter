@@ -18,8 +18,8 @@ class GarageSpotTest {
     }
 
     @Test
-    void shouldAcceptVehicle_WhenEmpty() {
-        GarageSpot spot = new GarageSpot(1, false);
+    void shouldAcceptVehicleWhenEmpty() {
+        GarageSpot spot = new GarageSpot(1);
         Vehicle car = new Vehicle("ABC-123", "Toyota", "Camry", "Grey", false);
         
         boolean success = spot.occupy(car);
@@ -38,8 +38,8 @@ class GarageSpotTest {
     }
 
     @Test
-    void shouldRejectVehicle_WhenAlreadyOccupied() {
-        GarageSpot spot = new GarageSpot(1, false);
+    void shouldRejectVehicleWhenAlreadyOccupied() {
+        GarageSpot spot = new GarageSpot(1);
         Vehicle car1 = new Vehicle("ABC-123", "Toyota", "Camry", "Grey", false);
         Vehicle car2 = new Vehicle("XYZ-999", "Ford", "Mustang", "Red", false);
 
