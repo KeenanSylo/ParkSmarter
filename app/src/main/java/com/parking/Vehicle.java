@@ -13,12 +13,12 @@ public class Vehicle {
             throw new IllegalArgumentException("License plate cannot be null or blank");
         }
 
-        if (brand == null) {
-             throw new IllegalArgumentException("Brand cannot be null");
+        if (brand == null || brand.isBlank()) {
+             throw new IllegalArgumentException("Brand cannot be null or blank");
         }
 
-        if (color == null) {
-             throw new IllegalArgumentException("Color cannot be null");
+        if (color == null || color.isBlank()) {
+             throw new IllegalArgumentException("Color cannot be null or blank");
         }
         
         this.licensePlate = licensePlate;
