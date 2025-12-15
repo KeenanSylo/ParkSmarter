@@ -17,11 +17,19 @@ public class GarageSpot {
         return isEmpty;
     }
 
-    public void occupy() {
+    public boolean occupy() {
+        if (!this.isEmpty) {
+            return false; // Already occupied
+        }
         this.isEmpty = false;
+        return true; // Success
     }
 
-    public void vacate() {
+    public boolean vacate() {
+        if (this.isEmpty) {
+            return false; // Already empty
+        }
         this.isEmpty = true;
+        return true; // Success
     }
 }

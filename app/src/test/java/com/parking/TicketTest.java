@@ -16,7 +16,7 @@ class TicketTest {
     }
 
     @Test
-    void shouldThrowException_WhenEntryTimeIsNull() {
+    void shouldThrowExceptionWhenEntryTimeIsNull() {
         assertThrows(IllegalArgumentException.class, () -> new Ticket(null));
     }
 
@@ -35,7 +35,7 @@ class TicketTest {
     }
 
     @Test
-    void shouldUpdateStatus_WhenMarkedPaid() { // Then update status when marked paid
+    void shouldUpdateStatusWhenMarkedPaid() { // Then update status when marked paid
         Ticket ticket = new Ticket(LocalDateTime.now());
         
         ticket.markPaid();
@@ -44,7 +44,7 @@ class TicketTest {
     }
 
     @Test
-    void shouldThrowException_WhenPaidTwice() {
+    void shouldThrowExceptionWhenPaidTwice() {
         Ticket ticket = new Ticket(LocalDateTime.now());
         ticket.markPaid();
 

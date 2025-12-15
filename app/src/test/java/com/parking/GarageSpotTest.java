@@ -34,4 +34,25 @@ class GarageSpotTest {
 
         assertTrue(spot.isEmpty(), "Spot should be empty after vacate");
     }
+
+    @Test
+    void shouldReturnFalseWhenOccupyingFullSpot() {
+        GarageSpot spot = new GarageSpot(1);
+        spot.occupy(); // First time works
+
+        // Second time fails
+        boolean result = spot.occupy();
+
+        assertFalse(result, "Need to return false because spot is already full");
+    }
+
+    @Test
+    void shouldReturnFalseWhenVacatingEmptySpot() {
+        GarageSpot spot = new GarageSpot(1);
+        
+        // Try to leave an empty spot
+        boolean result = spot.vacate();
+
+        assertFalse(result, "Need to return false because spot is already empty");
+    }
 }
