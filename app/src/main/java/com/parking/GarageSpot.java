@@ -7,7 +7,6 @@ public class GarageSpot {
 
     public GarageSpot(int id) {
         this.id = id;
-        this.isEmpty = true;
         this.parkedVehicle = null;
     }
 
@@ -16,11 +15,11 @@ public class GarageSpot {
     }
 
     public boolean isEmpty() {
-        return isEmpty;
+        return parkedVehicle == null;
     }
 
     public boolean occupy(Vehicle vehicle) {
-        if (!this.isEmpty) {
+        if (this.parkedVehicle != null) {
             return false; // Already occupied
         }
         this.parkedVehicle = vehicle;
@@ -28,7 +27,7 @@ public class GarageSpot {
     }
 
     public boolean vacate() {
-        if (this.isEmpty) {
+        if (this.parkedVehicle == null) {
             return false; // Already empty
         }
         this.parkedVehicle = null;

@@ -30,14 +30,6 @@ class GarageSpotTest {
     }
 
     @Test
-    void shouldBecomeOccupied() { // Spot become occupied
-        GarageSpot spot = new GarageSpot(1);
-        assertTrue(spot.occupy(), "Occupy should return true on empty spot");
-        
-        assertFalse(spot.isEmpty(), "Spot should NOT be empty after occupy");
-    }
-
-    @Test
     void shouldRejectVehicleWhenAlreadyOccupied() {
         GarageSpot spot = new GarageSpot(1);
         Vehicle car1 = new Vehicle("ABC-123", "Toyota", "Camry", "Grey", false);
@@ -52,23 +44,15 @@ class GarageSpotTest {
     }
 
     @Test
-    void shouldBecomeEmptyWhenVacated() { // Spot become empty when vacated
+    void shouldBecomeEmptyWhenVacated() {
         GarageSpot spot = new GarageSpot(1);
-        assertTrue(spot.occupy(), "occupy should succeed");
-        assertTrue(spot.vacate(), "Vacate should return true on occupied spot");
+        Vehicle car = new Vehicle("CAR-1", "Jeep", "Wrangler", "Black", false);
+        
+        spot.occupy(car); // Fill it first
 
-        assertTrue(spot.isEmpty(), "Spot should be empty after vacate");
-    }
-
-    @Test
-    void shouldReturnFalseWhenOccupyingFullSpot() {
-        GarageSpot spot = new GarageSpot(1);
-        assertTrue(spot.occupy(), "Setup: first occupy should succeed");
-
-        // Second time fails
-        boolean result = spot.occupy();
-
-        assertFalse(result, "Need to return false because spot is already full");
+        assertTrue(spot.vacate(), "Vacate should return true");
+        assertTrue(spot.isEmpty(), "Spot should be empty now");
+        assertNull(spot.getParkedVehicle(), "Vehicle reference should be gone");
     }
 
     @Test
