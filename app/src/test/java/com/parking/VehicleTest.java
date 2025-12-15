@@ -47,4 +47,18 @@ public class VehicleTest {
         new Vehicle("   ", "Ford", "Mustang", "Black", false);
     }, "Should verify license plate is not whitespace only");
   }
+
+   @Test
+  void brandCannotBeNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+        new Vehicle("ABC-123", null, "Model S", "Red", true);
+    }, "Should verify brand is not null");
+  }
+
+  @Test
+  void colorCannotBeNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+        new Vehicle("ABC-123", "Tesla", "Model S", null, true);
+    }, "Should verify color is not null");
+  }
 }
