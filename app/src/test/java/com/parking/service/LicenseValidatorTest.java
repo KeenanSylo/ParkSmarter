@@ -35,4 +35,9 @@ class LicenseValidatorTest {
         assertFalse(LicenseValidator.isValid("ÄBC 123"), "Letter Ä is banned");
         assertFalse(LicenseValidator.isValid("ÖBC 123"), "Letter Ö is banned");
     }
+
+    @Test
+    void shouldRejectLetterO_AtEnd() {
+        assertFalse(LicenseValidator.isValid("ABC 12O"), "Last character cannot be O");
+    }
 }
