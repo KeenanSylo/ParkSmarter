@@ -7,4 +7,6 @@ public interface SpotRepository {
     List<GarageSpot> getAllSpots();
 
     GarageSpot findById(int id); // find a spot by its ID
+
+    List<GarageSpot> findAvailableSpots();
 }

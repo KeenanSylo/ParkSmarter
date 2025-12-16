@@ -31,4 +31,15 @@ public class InMemorySpotRepository implements SpotRepository {
         }
         return null;
     }
+
+    @Override
+    public List<GarageSpot> findAvailableSpots() {
+        List<GarageSpot> available = new ArrayList<>(); // create a new list to hold available spots
+        for (GarageSpot spot : spots) {
+            if (spot.isEmpty()) {
+                available.add(spot);
+            }
+        }
+        return available;
+    }
 }
