@@ -13,9 +13,11 @@ public class PricingService {
     }
 
     public double calculatePrice(LocalDateTime start, LocalDateTime end) {
+        if (end.isBefore(start)) {
+            throw new IllegalArgumentException("End time cannot be before start time");
+        }
+
         Duration duration = Duration.between(start, end);
-        
-        // I use ceiling to round up partial hours
         long minutes = duration.toMinutes();
         double hours = Math.ceil(minutes / 60.0);
 
