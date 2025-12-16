@@ -1,6 +1,7 @@
 package com.parking;
 
 import com.parking.controller.GarageController;
+import com.parking.model.GarageSpot;
 import com.parking.model.Ticket;
 import com.parking.model.Vehicle;
 import com.parking.repository.InMemorySpotRepository;
@@ -52,15 +53,16 @@ public class Main {
 
         System.out.print("Enter Model: ");
         String model = scanner.nextLine();
-        
+
         // Simple vehicle creation (You can add more prompts for Color/Brand if you want)
         Vehicle car = new Vehicle(plate, brand, model, "Unknown");
 
-        Ticket ticket = controller.enterCar(car);
+        GarageSpot spot = controller.enterCar(car);
 
-        if (ticket != null) {
+        if (spot != null) {
             System.out.println("Car is parked Successfully!");
-            System.out.println("Ticket ID: " + ticket.getId());
+            System.out.println("Please park in Spot ID: " + spot.getId());
+            System.out.println("Ticket ID: " + spot.getTicket().getId());
         } else {
             System.out.println("Sorry the garage is full!");
         }
@@ -74,7 +76,7 @@ public class Main {
             // Note: This returns a double (price) based on your latest Controller code
             double price = controller.exitCar(spotId);
 
-            if (price > 0) {
+            if (price >= 0) {
                 System.out.println("Car exited successfully.");
                 System.out.println("Please pay: " + price + " SEK");
             } else {

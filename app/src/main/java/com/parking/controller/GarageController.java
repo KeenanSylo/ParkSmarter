@@ -50,6 +50,6 @@ public class GarageController {
             
             return price; 
         }
-        return 0.0; // Return 0 if spot was empty or invalid
+        return -1.0; // Return -1 if spot was empty or invalid
     }
 }
