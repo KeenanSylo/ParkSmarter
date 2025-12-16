@@ -95,7 +95,7 @@ class GarageControllerTest {
     }
 
     @Test
-    void shouldSaveTicketInSpot_WhenParking() {
+    void shouldSaveTicketInSpotWhenParking() {
         Vehicle car = new Vehicle("ABC-123", "Tesla", "X", "White");
         GarageSpot spot = new GarageSpot(1);
 

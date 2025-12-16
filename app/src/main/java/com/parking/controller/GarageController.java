@@ -19,20 +19,18 @@ public class GarageController {
     public Ticket enterCar(Vehicle vehicle) {
         List<GarageSpot> availableSpots = spotRepository.findAvailableSpots();
         
-        GarageSpot selectedSpot = null;
-
-        // Take the first available spot
-        if (!availableSpots.isEmpty()) {
-            selectedSpot = availableSpots.get(0);
+        // For when its full
+        if (availableSpots.isEmpty()) {
+            return null;
         }
 
-        // 3. Park if we found a place
-        if (selectedSpot != null) {
-            selectedSpot.occupy(vehicle);
-            return new Ticket(java.time.LocalDateTime.now());
-        }
-
-        return null; // Garage full
+        // take the first available spot
+        GarageSpot spot = availableSpots.get(0);
+        
+        Ticket ticket = new Ticket(LocalDateTime.now());
+        spot.occupy(vehicle, ticket);
+        
+        return ticket;
     }
 
     public boolean exitCar(int spotId) {

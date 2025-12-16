@@ -53,4 +53,17 @@ class TicketTest {
         assertThrows(IllegalStateException.class, () -> {ticket.markPaid(); 
         }, "Should throw exception if ticket is already paid");
     }
+
+    @Test
+    void shouldCalculateParkingPrice() {
+        LocalDateTime threeHoursAgo = LocalDateTime.now().minusHours(3); // 3 hours for parking
+        Ticket ticket = new Ticket(threeHoursAgo);
+        
+        double hourlyRate = 10.0;
+        LocalDateTime now = LocalDateTime.now();
+
+        double price = ticket.calculatePrice(now, hourlyRate);
+
+        assertEquals(30.0, price, "3 hours should cost 30.0");
+    }
 }
