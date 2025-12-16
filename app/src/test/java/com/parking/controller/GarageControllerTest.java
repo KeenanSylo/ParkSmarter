@@ -84,4 +84,32 @@ class GarageControllerTest {
 
         assertFalse(success, "Should return false because spot was already empty");
     }
+
+    @Test
+    void shouldFailExitWhenSpotDoesNotExist() {
+        when(spotRepository.findById(99)).thenReturn(null);
+
+        boolean success = controller.exitCar(99);
+
+        assertFalse(success, "Should return false for unknown spot ID"); // spot does not exist
+    }
+
+    @Test
+    void shouldParkElectricVehicle_InSpotWithCharger() {
+        Vehicle electricCar = new Vehicle("EV-333", "Tesla", "3", "White", true); // true = Electric
+
+        GarageSpot regularSpot = new GarageSpot(1, false); // No Charger
+        GarageSpot chargingSpot = new GarageSpot(2, true); // Has Charger
+
+        // We mock the repository to return both spots as available
+        when(spotRepository.findAvailableSpots()).thenReturn(List.of(regularSpot, chargingSpot));
+
+        // ACT
+        controller.enterCar(electricCar);
+
+        // ASSERT
+        assertTrue(regularSpot.isEmpty(), "EV should skip the regular spot");
+        assertFalse(chargingSpot.isEmpty(), "EV should take the spot with charger");
+        assertEquals(electricCar, chargingSpot.getParkedVehicle());
+    }
 }
