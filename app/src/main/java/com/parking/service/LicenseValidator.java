@@ -8,6 +8,6 @@ public class LicenseValidator {
     public static boolean isValid(String plate) {
         if (plate == null) 
             return false;
-        return STANDARD_PATTERN.matcher(plate).matches();
+        return STANDARD_PATTERN.matcher(plate.toUpperCase()).matches();
     }
 }
