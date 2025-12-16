@@ -21,4 +21,14 @@ public class InMemorySpotRepository implements SpotRepository {
         // Return a copy of the list eller the list itself
         return new ArrayList<>(spots);
     }
+
+    @Override
+    public GarageSpot findById(int id) {
+        for (GarageSpot spot : spots) { // it loops through the list to find spot with same ID
+            if (spot.getId() == id) {
+                return spot;
+            }
+        }
+        return null;
+    }
 }
