@@ -76,4 +76,18 @@ class GarageSpotTest {
         GarageSpot spotWithoutCharger = new GarageSpot(3, false);
         assertFalse(spotWithoutCharger.hasCharger(), "Spot should NOT have a charger");
     }
+
+    @Test
+    void shouldStoreTicketWhenOccupying() {
+        // ARRANGE
+        GarageSpot spot = new GarageSpot(1);
+        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red", false);
+        Ticket ticket = new Ticket(java.time.LocalDateTime.now());
+
+        // We want occupy to take both the car and also the ticket
+        boolean success = spot.occupy(car, ticket);
+
+        assertTrue(success, "Should occupy successfully");
+        assertEquals(ticket, spot.getTicket(), "Spot should hold the ticket");
+    }
 }
