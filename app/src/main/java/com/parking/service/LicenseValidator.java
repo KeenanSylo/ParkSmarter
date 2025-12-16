@@ -11,6 +11,10 @@ public static boolean isValid(String plate) {
         
         String upperPlate = plate.toUpperCase();
         
+        if (plate == null || plate.isBlank()) {
+            return false;
+        }
+        
         // Pattern Check
         if (!STANDARD_PATTERN.matcher(upperPlate).matches()) {
             return false;

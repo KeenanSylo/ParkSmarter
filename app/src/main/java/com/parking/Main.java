@@ -45,6 +45,7 @@ public class Main {
     }
 
     private static void handlePark(Scanner scanner, GarageController controller) {
+        System.out.println("Use Swedish format 'ABC 123' or 'ABC 12A'");
         System.out.print("Enter License Plate: ");
         String plate = scanner.nextLine();
 

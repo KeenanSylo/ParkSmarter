@@ -16,25 +16,16 @@ public class VehicleTest {
     assertEquals("Blue", truck.getColor());
   }
 
-  @Test
-  void licensePlateCannotBeNull() {
+@Test
+  void shouldThrowException_WhenLicensePlateIsInvalid() {
     assertThrows(IllegalArgumentException.class, () -> {
         new Vehicle(null, "Ford", "Mustang", "Black");
-    }, "Should verify license plate is not null");
-  }
+    }, "Should block null plates");
 
-  @Test
-  void licensePlateCannotBeEmpty() {
+    // Test Bad Format
     assertThrows(IllegalArgumentException.class, () -> {
-        new Vehicle("", "Ford", "Mustang", "Black");
-    }, "Should verify license plate is not empty");
-  }
-
-  @Test
-  void licensePlateCannotBeBlank() {
-    assertThrows(IllegalArgumentException.class, () -> {
-        new Vehicle("   ", "Ford", "Mustang", "Black");
-    }, "Should verify license plate is not whitespace only");
+        new Vehicle("BAD-PLATE", "Ford", "Mustang", "Black");
+    }, "Should block invalid formats");
   }
 
    @Test

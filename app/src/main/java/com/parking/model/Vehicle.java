@@ -10,8 +10,8 @@ public class Vehicle {
     private final String color;
 
     public Vehicle(String licensePlate, String brand, String model, String color) {
-        if (!LicenseValidator.isValid(licensePlate) || licensePlate == null || licensePlate.isBlank()) {
-            throw new IllegalArgumentException("License plate cannot be null or blank");
+        if (!LicenseValidator.isValid(licensePlate)) {
+            throw new IllegalArgumentException("Invalid license plate format");
         }
 
         if (brand == null || brand.isBlank()) {

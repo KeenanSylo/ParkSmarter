@@ -40,4 +40,11 @@ class LicenseValidatorTest {
     void shouldRejectLetterO_AtEnd() {
         assertFalse(LicenseValidator.isValid("ABC 12O"), "Last character cannot be O");
     }
+
+    @Test
+    void shouldRejectNullOrEmpty() {
+        assertFalse(LicenseValidator.isValid(null), "Should safely return false for null");
+        assertFalse(LicenseValidator.isValid(""), "Should return false for empty string");
+        assertFalse(LicenseValidator.isValid("   "), "Should return false for blank string");
+    }
 }
