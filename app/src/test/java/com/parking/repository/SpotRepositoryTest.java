@@ -19,10 +19,16 @@ class SpotRepositoryTest {
 
     @Test
     void shouldInitializeWithCorrectCapacity() {
-        // ACT
-        List<GarageSpot> spots = repository.getAllSpots();
+        List<GarageSpot> spots = repository.getAllSpots(); //act
 
-        // ASSERT
         assertEquals(5, spots.size(), "Should have created exactly 5 spots");
+    }
+
+    @Test
+    void shouldFindSpotById() {
+        GarageSpot spot = repository.findById(2); // I try to ask for Spot #2
+
+        assertNotNull(spot, "Should find the spot");
+        assertEquals(2, spot.getId(), "Should be ID 2");
     }
 }
