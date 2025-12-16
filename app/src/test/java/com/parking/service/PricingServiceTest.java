@@ -27,4 +27,20 @@ class PricingServiceTest {
         // Verify dependency usage
         verify(mockRepo).getHourlyRate();
     }
+
+    @Test
+    void shouldRoundUpPartialHours() {
+        RateRepository mockRepo = mock(RateRepository.class);
+        when(mockRepo.getHourlyRate()).thenReturn(10.0);
+        PricingService service = new PricingService(mockRepo);
+
+        // 1 hour 5 minutes
+        LocalDateTime start = LocalDateTime.of(2023, 10, 1, 12, 0);
+        LocalDateTime end = LocalDateTime.of(2023, 10, 1, 13, 5); 
+
+        double price = service.calculatePrice(start, end);
+
+        // I expect 2 hours * 10.0 = 20.0
+        assertEquals(20.0, price, "1h 5m should be charged as 2 hours");
+    }
 }
