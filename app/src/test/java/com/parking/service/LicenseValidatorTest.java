@@ -13,7 +13,12 @@ class LicenseValidatorTest {
 
     @Test
     void shouldAcceptValidNewFormat() {
-        // New: 3 Letters + Space + 2 Digits + 1 Letter
+        // 3 Letters + Space + 2 Digits + 1 Letter
         assertTrue(LicenseValidator.isValid("ABC 12A"), "Should accept standard new format");
+    }
+
+    @Test
+    void shouldHandleLowercaseInput() {
+        assertTrue(LicenseValidator.isValid("abc 123"), "Should accept lowercase and normalize it");
     }
 }
