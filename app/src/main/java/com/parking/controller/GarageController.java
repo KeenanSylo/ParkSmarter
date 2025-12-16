@@ -17,7 +17,7 @@ public class GarageController {
         this.spotRepository = spotRepository;
     }
 
-    public Ticket enterCar(Vehicle vehicle) {
+    public GarageSpot enterCar(Vehicle vehicle) {
         List<GarageSpot> availableSpots = spotRepository.findAvailableSpots();
         
         // For when its full
@@ -27,11 +27,11 @@ public class GarageController {
 
         // take the first available spot
         GarageSpot spot = availableSpots.get(0);
-        
         Ticket ticket = new Ticket(LocalDateTime.now());
+
         spot.occupy(vehicle, ticket);
         
-        return ticket;
+        return spot;
     }
 
     public double exitCar(int spotId) {
