@@ -46,7 +46,11 @@ public class Main {
     private static void handlePark(Scanner scanner, GarageController controller) {
         System.out.print("Enter License Plate: ");
         String plate = scanner.nextLine();
+
+        System.out.print("Enter Brand: ");
         String brand = scanner.nextLine();
+
+        System.out.print("Enter Model: ");
         String model = scanner.nextLine();
         
         // Simple vehicle creation (You can add more prompts for Color/Brand if you want)
