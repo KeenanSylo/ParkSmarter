@@ -21,6 +21,11 @@ public static boolean isValid(String plate) {
             return false;
         }
 
+        // Last character O check
+        if (upperPlate.endsWith("O")) {
+            return false;
+    }
+
         return true;
     }
 }
