@@ -45,4 +45,16 @@ class GarageControllerTest {
 
         assertNotNull(ticket, "Should receive a ticket");
     }
+
+    @Test
+    void rejectEntryWhenNoSpotsAvailable() {
+        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red", false);
+
+        // We tell the mock repository to return no available spots
+        when(spotRepository.findAvailableSpots()).thenReturn(java.util.Collections.emptyList());
+
+        Ticket ticket = controller.enterCar(car);
+
+        assertNull(ticket, "Should NOT receive a ticket when full");
+    }
 }
