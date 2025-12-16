@@ -27,4 +27,16 @@ public class GarageController {
         }
         return null;
     }
+
+    public boolean exitCar(int spotId) {
+        // We need to find the spot by ID
+        GarageSpot spot = spotRepository.findById(spotId);
+
+        // If we found it and it's occupied by us, we vacate it
+        if (spot != null && !spot.isEmpty()) {
+            return spot.vacate();
+        }
+        
+        return false;
+    }
 }
