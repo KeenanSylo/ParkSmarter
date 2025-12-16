@@ -65,4 +65,15 @@ class GarageSpotTest {
 
         assertFalse(result, "Need to return false because spot is already empty");
     }
+
+    @Test
+    void shouldStoreChargerStatus() {
+        // this is for spots with chargers
+        GarageSpot spotWithCharger = new GarageSpot(2, true);
+        assertTrue(spotWithCharger.hasCharger(), "Spot should have a charger");
+
+        // this is for spots without chargers
+        GarageSpot spotWithoutCharger = new GarageSpot(3, false);
+        assertFalse(spotWithoutCharger.hasCharger(), "Spot should NOT have a charger");
+    }
 }
