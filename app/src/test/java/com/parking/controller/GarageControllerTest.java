@@ -59,7 +59,7 @@ class GarageControllerTest {
     }
 
     @Test
-    void shouldAllowExit_WhenVehicleIsParked() {
+    void shouldAllowExitWhenVehicleIsParked() {
         GarageSpot occupiedSpot = new GarageSpot(1);
         occupiedSpot.occupy(new Vehicle("ABC-123", "Lexus", "LFA", "Red", false));
 
@@ -71,5 +71,17 @@ class GarageControllerTest {
 
         assertTrue(success, "Exit should be successful");
         assertTrue(occupiedSpot.isEmpty(), "Spot should now be empty");
+    }
+
+    @Test
+    void shouldFailExitWhenSpotIsAlreadyEmpty() {
+        GarageSpot emptySpot = new GarageSpot(2);
+        
+        // Mock the repository to return this empty spot
+        when(spotRepository.findById(2)).thenReturn(emptySpot);
+
+        boolean success = controller.exitCar(2);
+
+        assertFalse(success, "Should return false because spot was already empty");
     }
 }
