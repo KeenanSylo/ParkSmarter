@@ -101,4 +101,14 @@ class TicketTest {
             ticket.calculatePrice(pastTime, 10.0);
         }, "Should throw exception if exit time is before entry time");
     }
+
+    @Test
+    void shouldCalculatePriceForMultipleDays() { // 25 hours so more than a day
+        LocalDateTime longStay = LocalDateTime.now().minusHours(25);
+        Ticket ticket = new Ticket(longStay);
+
+        double price = ticket.calculatePrice(LocalDateTime.now(), 10.0);
+
+        assertEquals(250.0, price, "Should handle multi-day durations correctly");
+    }
 }
