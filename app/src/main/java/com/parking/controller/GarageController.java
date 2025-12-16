@@ -17,15 +17,32 @@ public class GarageController {
     }
 
     public Ticket enterCar(Vehicle vehicle) {
-        // Ask repo for spots
         List<GarageSpot> availableSpots = spotRepository.findAvailableSpots();
+        
+        GarageSpot selectedSpot = null;
 
-        if (!availableSpots.isEmpty()) {
-            GarageSpot spot = availableSpots.get(0); // Take the first one
-            spot.occupy(vehicle); // We park the car
-            return new Ticket(LocalDateTime.now()); // Return receipt
+        // 1. If it's Electric, look for a charger spot first
+        if (vehicle.isElectric()) {
+            for (GarageSpot spot : availableSpots) {
+                if (spot.hasCharger()) {
+                    selectedSpot = spot;
+                    break; // Found one! Stop looking.
+                }
+            }
         }
-        return null;
+
+        // 2. If no charger spot found (or not electric), just take the first available one
+        if (selectedSpot == null && !availableSpots.isEmpty()) {
+            selectedSpot = availableSpots.get(0);
+        }
+
+        // 3. Park if we found a place
+        if (selectedSpot != null) {
+            selectedSpot.occupy(vehicle);
+            return new Ticket(java.time.LocalDateTime.now());
+        }
+
+        return null; // Garage full
     }
 
     public boolean exitCar(int spotId) {
