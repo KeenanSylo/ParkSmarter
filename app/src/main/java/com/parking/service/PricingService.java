@@ -14,11 +14,12 @@ public class PricingService {
 
     public double calculatePrice(LocalDateTime start, LocalDateTime end) {
         Duration duration = Duration.between(start, end);
-        long hours = duration.toHours();
+        
+        // I use ceiling to round up partial hours
+        long minutes = duration.toMinutes();
+        double hours = Math.ceil(minutes / 60.0);
 
-        // we get rate from repository
         double rate = rateRepository.getHourlyRate();
-
         return hours * rate;
     }
 }
