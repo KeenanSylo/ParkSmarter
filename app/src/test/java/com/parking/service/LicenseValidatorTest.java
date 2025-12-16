@@ -21,4 +21,18 @@ class LicenseValidatorTest {
     void shouldHandleLowercaseInput() {
         assertTrue(LicenseValidator.isValid("abc 123"), "Should accept lowercase and normalize it");
     }
+
+    @Test
+    void shouldRejectBannedLetters() {
+        assertFalse(LicenseValidator.isValid("AIB 123"), "Letter I is banned");
+        assertFalse(LicenseValidator.isValid("ABQ 123"), "Letter Q is banned");
+        assertFalse(LicenseValidator.isValid("ABV 123"), "Letter V is banned");
+    }
+
+    @Test
+    void shouldRejectSwedishCharacters() {
+        assertFalse(LicenseValidator.isValid("ÅBC 123"), "Letter Å is banned");
+        assertFalse(LicenseValidator.isValid("ÄBC 123"), "Letter Ä is banned");
+        assertFalse(LicenseValidator.isValid("ÖBC 123"), "Letter Ö is banned");
+    }
 }
