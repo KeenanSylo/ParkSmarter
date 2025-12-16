@@ -11,6 +11,7 @@ import com.parking.repository.SpotRepository;
 public class GarageController {
     
     private final SpotRepository spotRepository;
+    private static final double ticketRate = 10.0;
 
     public GarageController(SpotRepository spotRepository) {
         this.spotRepository = spotRepository;
@@ -33,15 +34,22 @@ public class GarageController {
         return ticket;
     }
 
-    public boolean exitCar(int spotId) {
-        // We need to find the spot by ID
+    public double exitCar(int spotId) {
         GarageSpot spot = spotRepository.findById(spotId);
 
-        // If we found it and it's occupied by us, we vacate it
         if (spot != null && !spot.isEmpty()) {
-            return spot.vacate();
+            double price = 0.0;
+            
+            Ticket ticket = spot.getTicket();
+            
+            if (ticket != null) { // calculate price only if ticket exists
+                price = ticket.calculatePrice(LocalDateTime.now(), ticketRate);
+            }
+
+            spot.vacate(); // vacate the spot
+            
+            return price; 
         }
-        
-        return false;
+        return 0.0; // Return 0 if spot was empty or invalid
     }
 }
