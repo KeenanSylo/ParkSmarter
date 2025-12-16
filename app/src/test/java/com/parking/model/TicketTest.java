@@ -66,4 +66,17 @@ class TicketTest {
 
         assertEquals(30.0, price, "3 hours should cost 30.0");
     }
+
+    @Test
+    void shouldRoundUpPartialHours() { // example using 1 hour 5 minutes
+        LocalDateTime entryTime = LocalDateTime.now().minusHours(1).minusMinutes(5);
+        Ticket ticket = new Ticket(entryTime);
+        
+        double hourlyRate = 10.0;
+
+        double price = ticket.calculatePrice(LocalDateTime.now(), hourlyRate);
+
+        // we want to round it up
+        assertEquals(20.0, price, "1hr 5min should cost same as 2hrs (20.0)");
+    }
 }
