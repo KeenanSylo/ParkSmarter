@@ -31,4 +31,22 @@ class SpotRepositoryTest {
         assertNotNull(spot, "Should find the spot");
         assertEquals(2, spot.getId(), "Should be ID 2");
     }
+
+    @Test
+    void returnNullWhenIdNotFound() { // unknown ID (99 for example)
+        GarageSpot spot = repository.findById(99);
+
+        assertNull(spot, "Should return null for unknown ID");
+    }
+
+    @Test
+    void shouldFindEmptySpotsOnly() {
+        GarageSpot spot1 = repository.findById(1); // we occupy spot 1
+        spot1.occupy(new com.parking.model.Vehicle("ABC-111", "Lexus", "LFA", "White", false));
+
+        List<GarageSpot> available = repository.findAvailableSpots(); // we ask for empty spots
+
+        // we should get 4 empty spots back
+        assertEquals(4, available.size(), "Should only return empty spots");
+    }
 }
