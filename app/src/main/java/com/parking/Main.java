@@ -54,17 +54,23 @@ public class Main {
         System.out.print("Enter Model: ");
         String model = scanner.nextLine();
 
-        // Simple vehicle creation (You can add more prompts for Color/Brand if you want)
-        Vehicle car = new Vehicle(plate, brand, model, "Unknown");
+        try {
+            Vehicle car = new Vehicle(plate, brand, model, "Unknown");
 
-        GarageSpot spot = controller.enterCar(car);
+            // 2. If we get here, the car is valid. Park it.
+            GarageSpot spot = controller.enterCar(car);
 
-        if (spot != null) {
-            System.out.println("Car is parked Successfully!");
-            System.out.println("Please park in Spot ID: " + spot.getId());
-            System.out.println("Ticket ID: " + spot.getTicket().getId());
-        } else {
-            System.out.println("Sorry the garage is full!");
+            if (spot != null) {
+                System.out.println("Car is parked Successfully!");
+                System.out.println("Please park in Spot ID: " + spot.getId());
+                System.out.println("Ticket ID: " + spot.getTicket().getId());
+            } else {
+                System.out.println("Sorry the garage is full!");
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Could not create vehicle: " + e.getMessage());
+            System.out.println("Use Swedish format 'ABC 123' or 'ABC 12A'");
         }
     }
 
@@ -73,7 +79,7 @@ public class Main {
         try {
             int spotId = Integer.parseInt(scanner.nextLine());
             
-            // Note: This returns a double (price) based on your latest Controller code
+            // This returns a double (which is price) based on your latest Controller code
             double price = controller.exitCar(spotId);
 
             if (price >= 0) {

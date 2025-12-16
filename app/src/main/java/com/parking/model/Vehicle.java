@@ -1,5 +1,7 @@
 package com.parking.model;
 
+import com.parking.service.LicenseValidator;
+
 public class Vehicle {
 
     private final String licensePlate;
@@ -8,7 +10,7 @@ public class Vehicle {
     private final String color;
 
     public Vehicle(String licensePlate, String brand, String model, String color) {
-        if (licensePlate == null || licensePlate.isBlank()) {
+        if (!LicenseValidator.isValid(licensePlate) || licensePlate == null || licensePlate.isBlank()) {
             throw new IllegalArgumentException("License plate cannot be null or blank");
         }
 
