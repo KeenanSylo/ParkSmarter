@@ -57,4 +57,19 @@ class GarageControllerTest {
 
         assertNull(ticket, "Should NOT receive a ticket when full");
     }
+
+    @Test
+    void shouldAllowExit_WhenVehicleIsParked() {
+        GarageSpot occupiedSpot = new GarageSpot(1);
+        occupiedSpot.occupy(new Vehicle("ABC-123", "Lexus", "LFA", "Red", false));
+
+        // We tell the mock repository to return the occupied spot when searched by ID
+        when(spotRepository.findById(1)).thenReturn(occupiedSpot);
+
+        // Now we try to exit
+        boolean success = controller.exitCar(1);
+
+        assertTrue(success, "Exit should be successful");
+        assertTrue(occupiedSpot.isEmpty(), "Spot should now be empty");
+    }
 }
