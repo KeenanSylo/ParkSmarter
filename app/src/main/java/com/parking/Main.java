@@ -2,7 +2,6 @@ package com.parking;
 
 import com.parking.controller.GarageController;
 import com.parking.model.GarageSpot;
-import com.parking.model.Ticket;
 import com.parking.model.Vehicle;
 import com.parking.repository.InMemorySpotRepository;
 import com.parking.repository.SpotRepository;

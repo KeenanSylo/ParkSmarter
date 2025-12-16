@@ -42,7 +42,7 @@ class SpotRepositoryTest {
     @Test
     void shouldFindEmptySpotsOnly() {
         GarageSpot spot1 = repository.findById(1); // we occupy spot 1
-        spot1.occupy(new com.parking.model.Vehicle("ABC-111", "Lexus", "LFA", "White"));
+        spot1.occupy(new com.parking.model.Vehicle("ABC 111", "Lexus", "LFA", "White"));
 
         List<GarageSpot> available = repository.findAvailableSpots(); // we ask for empty spots
 

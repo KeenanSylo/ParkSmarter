@@ -8,9 +8,9 @@ public class VehicleTest {
 
   @Test
   void testVehicleCreation() {
-    Vehicle truck = new Vehicle("ABC-999", "Ford", "F-150", "Blue");
+    Vehicle truck = new Vehicle("ABC 991", "Ford", "F-150", "Blue");
 
-    assertEquals("ABC-999", truck.getLicensePlate());
+    assertEquals("ABC 991", truck.getLicensePlate());
     assertEquals("Ford", truck.getBrand());
     assertEquals("F-150", truck.getModel());
     assertEquals("Blue", truck.getColor());
@@ -31,14 +31,14 @@ public class VehicleTest {
    @Test
   void brandCannotBeNull() {
     assertThrows(IllegalArgumentException.class, () -> {
-        new Vehicle("ABC-123", null, "Model S", "Red");
+        new Vehicle("ABC 121", null, "Model S", "Red");
     }, "Should verify brand is not null");
   }
 
   @Test
   void colorCannotBeNull() {
     assertThrows(IllegalArgumentException.class, () -> {
-        new Vehicle("ABC-123", "Tesla", "Model S", null);
+        new Vehicle("ABC 121", "Tesla", "Model S", null);
     }, "Should verify color is not null");
   }
 }

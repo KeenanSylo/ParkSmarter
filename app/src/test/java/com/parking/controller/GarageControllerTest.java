@@ -36,7 +36,7 @@ class GarageControllerTest {
 
     @Test
     void receiveTicketWhenSpotIsAvailable() {
-        Vehicle car = new Vehicle("ABC-111", "Lexus", "LFA", "White");
+        Vehicle car = new Vehicle("ABC 111", "Lexus", "LFA", "White");
         GarageSpot emptySpot = new GarageSpot(1);
 
         // Use mock to simulate available spot
@@ -50,7 +50,7 @@ class GarageControllerTest {
 
     @Test
     void rejectEntryWhenNoSpotsAvailable() {
-        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red");
+        Vehicle car = new Vehicle("ABC 121", "Ford", "Mustang", "Red");
 
         // We tell the mock repository to return no available spots
         when(spotRepository.findAvailableSpots()).thenReturn(java.util.Collections.emptyList());
@@ -64,7 +64,7 @@ class GarageControllerTest {
     void shouldAllowExitWhenVehicleIsParked() {
         GarageSpot occupiedSpot = new GarageSpot(1);
         Ticket ticket = new Ticket(LocalDateTime.now().minusHours(1));
-        occupiedSpot.occupy(new Vehicle("ABC-123", "Lexus", "LFA", "Red"), ticket);
+        occupiedSpot.occupy(new Vehicle("ABC 121", "Lexus", "LFA", "Red"), ticket);
 
         // We tell the mock repository to return the occupied spot when searched by ID
         when(spotRepository.findById(1)).thenReturn(occupiedSpot);
@@ -99,7 +99,7 @@ class GarageControllerTest {
 
     @Test
     void shouldSaveTicketInSpotWhenParking() {
-        Vehicle car = new Vehicle("ABC-123", "Tesla", "X", "White");
+        Vehicle car = new Vehicle("ABC 121", "Tesla", "X", "White");
         GarageSpot spot = new GarageSpot(1);
 
         // We tell mock to return our real spot
@@ -116,7 +116,7 @@ class GarageControllerTest {
     @Test
     void shouldReturnCalculatedPriceWhenExitingWithTicket() {
         GarageSpot spot = new GarageSpot(1);
-        Vehicle car = new Vehicle("ABC", "Car", "X", "Red");
+        Vehicle car = new Vehicle("ABC 111", "Car", "X", "Red");
         
         // Link the ticket and occupy the spot
         Ticket ticket = new Ticket(LocalDateTime.now().minusHours(3));
