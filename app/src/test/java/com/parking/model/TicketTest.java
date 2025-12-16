@@ -79,4 +79,26 @@ class TicketTest {
         // we want to round it up
         assertEquals(20.0, price, "1hr 5min should cost same as 2hrs (20.0)");
     }
+
+    @Test
+    void shouldChargeMinimumOneHour() { // even if less than an hour, charge for 1 hour
+        LocalDateTime tenMinutesAgo = LocalDateTime.now().minusMinutes(10);
+        Ticket ticket = new Ticket(tenMinutesAgo);
+
+        double price = ticket.calculatePrice(LocalDateTime.now(), 10.0);
+
+        assertEquals(10.0, price, "Less than 1 hour should still cost 10.0");
+    }
+
+    @Test
+    void shouldThrowException_WhenExitTimeIsBeforeEntryTime() {
+        LocalDateTime now = LocalDateTime.now();
+        Ticket ticket = new Ticket(now);
+        
+        LocalDateTime pastTime = now.minusHours(1); // Impossible exit time
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            ticket.calculatePrice(pastTime, 10.0);
+        }, "Should throw exception if exit time is before entry time");
+    }
 }
