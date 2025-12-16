@@ -43,4 +43,17 @@ class PricingServiceTest {
         // I expect 2 hours * 10.0 = 20.0
         assertEquals(20.0, price, "1h 5m should be charged as 2 hours");
     }
+
+    @Test
+    void shouldThrowExceptionWhenEndBeforeStart() {
+        RateRepository mockRepo = mock(RateRepository.class);
+        PricingService service = new PricingService(mockRepo);
+
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.minusHours(1); // not possible
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.calculatePrice(start, end);
+        });
+    }
 }
