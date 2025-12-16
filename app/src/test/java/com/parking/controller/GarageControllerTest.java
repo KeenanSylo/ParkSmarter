@@ -35,7 +35,7 @@ class GarageControllerTest {
 
     @Test
     void receiveTicketWhenSpotIsAvailable() {
-        Vehicle car = new Vehicle("ABC-111", "Lexus", "LFA", "White", false);
+        Vehicle car = new Vehicle("ABC-111", "Lexus", "LFA", "White");
         GarageSpot emptySpot = new GarageSpot(1);
 
         // Use mock to simulate available spot
@@ -48,7 +48,7 @@ class GarageControllerTest {
 
     @Test
     void rejectEntryWhenNoSpotsAvailable() {
-        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red", false);
+        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red");
 
         // We tell the mock repository to return no available spots
         when(spotRepository.findAvailableSpots()).thenReturn(java.util.Collections.emptyList());
@@ -61,7 +61,7 @@ class GarageControllerTest {
     @Test
     void shouldAllowExitWhenVehicleIsParked() {
         GarageSpot occupiedSpot = new GarageSpot(1);
-        occupiedSpot.occupy(new Vehicle("ABC-123", "Lexus", "LFA", "Red", false));
+        occupiedSpot.occupy(new Vehicle("ABC-123", "Lexus", "LFA", "Red"));
 
         // We tell the mock repository to return the occupied spot when searched by ID
         when(spotRepository.findById(1)).thenReturn(occupiedSpot);
@@ -95,27 +95,8 @@ class GarageControllerTest {
     }
 
     @Test
-    void shouldParkElectricVehicle_InSpotWithCharger() {
-        Vehicle electricCar = new Vehicle("EV-333", "Tesla", "3", "White", true); // true = Electric
-
-        GarageSpot regularSpot = new GarageSpot(1, false); // No Charger
-        GarageSpot chargingSpot = new GarageSpot(2, true); // Has Charger
-
-        // We mock the repository to return both spots as available
-        when(spotRepository.findAvailableSpots()).thenReturn(List.of(regularSpot, chargingSpot));
-
-        // ACT
-        controller.enterCar(electricCar);
-
-        // ASSERT
-        assertTrue(regularSpot.isEmpty(), "EV should skip the regular spot");
-        assertFalse(chargingSpot.isEmpty(), "EV should take the spot with charger");
-        assertEquals(electricCar, chargingSpot.getParkedVehicle());
-    }
-
-    @Test
     void shouldSaveTicketInSpot_WhenParking() {
-        Vehicle car = new Vehicle("ABC-123", "Tesla", "X", "White", true);
+        Vehicle car = new Vehicle("ABC-123", "Tesla", "X", "White");
         GarageSpot spot = new GarageSpot(1);
 
         // We tell mock to return our real spot

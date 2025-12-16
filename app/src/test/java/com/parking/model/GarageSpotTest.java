@@ -21,7 +21,7 @@ class GarageSpotTest {
     @Test
     void shouldAcceptVehicleWhenEmpty() {
         GarageSpot spot = new GarageSpot(1);
-        Vehicle car = new Vehicle("ABC-123", "Toyota", "Camry", "Grey", false);
+        Vehicle car = new Vehicle("ABC-123", "Toyota", "Camry", "Grey");
         
         boolean success = spot.occupy(car);
         
@@ -33,8 +33,8 @@ class GarageSpotTest {
     @Test
     void shouldRejectVehicleWhenAlreadyOccupied() {
         GarageSpot spot = new GarageSpot(1);
-        Vehicle car1 = new Vehicle("ABC-123", "Toyota", "Camry", "Grey", false);
-        Vehicle car2 = new Vehicle("XYZ-999", "Ford", "Mustang", "Red", false);
+        Vehicle car1 = new Vehicle("ABC-123", "Toyota", "Camry", "Grey");
+        Vehicle car2 = new Vehicle("XYZ-999", "Ford", "Mustang", "Red");
 
         spot.occupy(car1); // First car enters
 
@@ -47,7 +47,7 @@ class GarageSpotTest {
     @Test
     void shouldBecomeEmptyWhenVacated() {
         GarageSpot spot = new GarageSpot(1);
-        Vehicle car = new Vehicle("CAR-1", "Jeep", "Wrangler", "Black", false);
+        Vehicle car = new Vehicle("CAR-1", "Jeep", "Wrangler", "Black");
         
         spot.occupy(car); // Fill it first
 
@@ -67,20 +67,9 @@ class GarageSpotTest {
     }
 
     @Test
-    void shouldStoreChargerStatus() {
-        // this is for spots with chargers
-        GarageSpot spotWithCharger = new GarageSpot(2, true);
-        assertTrue(spotWithCharger.hasCharger(), "Spot should have a charger");
-
-        // this is for spots without chargers
-        GarageSpot spotWithoutCharger = new GarageSpot(3, false);
-        assertFalse(spotWithoutCharger.hasCharger(), "Spot should NOT have a charger");
-    }
-
-    @Test
     void shouldStoreTicketWhenOccupying() {
         GarageSpot spot = new GarageSpot(1);
-        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red", false);
+        Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red");
         Ticket ticket = new Ticket(java.time.LocalDateTime.now());
 
         // We want occupy to take both the car and also the ticket

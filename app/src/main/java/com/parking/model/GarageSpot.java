@@ -3,17 +3,11 @@ package com.parking.model;
 public class GarageSpot {
     private final int id;
     private Vehicle parkedVehicle;
-    private final boolean hasCharger;
     private Ticket currentTicket;
 
-    public GarageSpot(int id, boolean hasCharger) {
+    public GarageSpot(int id) {
         this.id = id;
         this.parkedVehicle = null;
-        this.hasCharger = hasCharger;
-    }
-
-    public GarageSpot(int id) {
-        this(id, false);
     }
 
     public Ticket getTicket() {
@@ -53,9 +47,5 @@ public class GarageSpot {
     // Getter to see which car is parked
     public Vehicle getParkedVehicle() {
         return parkedVehicle;
-    }
-
-    public boolean hasCharger() {
-        return hasCharger;
     }
 }

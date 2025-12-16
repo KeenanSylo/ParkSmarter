@@ -6,9 +6,8 @@ public class Vehicle {
     private final String brand;
     private final String model;
     private final String color;
-    private final boolean isElectric;
 
-    public Vehicle(String licensePlate, String brand, String model, String color, boolean isElectric) {
+    public Vehicle(String licensePlate, String brand, String model, String color) {
         if (licensePlate == null || licensePlate.isBlank()) {
             throw new IllegalArgumentException("License plate cannot be null or blank");
         }
@@ -25,7 +24,6 @@ public class Vehicle {
         this.brand = brand;
         this.model = model;
         this.color = color;
-        this.isElectric = isElectric;
     }
 
     public String getLicensePlate() {
@@ -42,9 +40,5 @@ public class Vehicle {
 
     public String getColor() {
         return color;
-    }
-
-    public boolean isElectric() {
-        return isElectric;
     }
 }

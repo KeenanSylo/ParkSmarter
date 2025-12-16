@@ -21,18 +21,8 @@ public class GarageController {
         
         GarageSpot selectedSpot = null;
 
-        // 1. If it's Electric, look for a charger spot first
-        if (vehicle.isElectric()) {
-            for (GarageSpot spot : availableSpots) {
-                if (spot.hasCharger()) {
-                    selectedSpot = spot;
-                    break; // Found one! Stop looking.
-                }
-            }
-        }
-
-        // 2. If no charger spot found (or not electric), just take the first available one
-        if (selectedSpot == null && !availableSpots.isEmpty()) {
+        // Take the first available spot
+        if (!availableSpots.isEmpty()) {
             selectedSpot = availableSpots.get(0);
         }
 
