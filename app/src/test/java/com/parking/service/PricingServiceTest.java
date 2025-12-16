@@ -56,4 +56,19 @@ class PricingServiceTest {
             service.calculatePrice(start, end);
         });
     }
+
+    @Test
+    void shouldChargeMinimumOneHour() {
+        RateRepository mockRepo = mock(RateRepository.class);
+        when(mockRepo.getHourlyRate()).thenReturn(10.0);
+        PricingService service = new PricingService(mockRepo);
+
+        // I do 30 seconds of parking here
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.plusSeconds(30);
+
+        double price = service.calculatePrice(start, end);
+
+        assertEquals(10.0, price, "30 seconds should cost 1 hour (10.0)");
+    }
 }
