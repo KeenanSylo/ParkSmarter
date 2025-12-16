@@ -1,5 +1,11 @@
 package com.parking.controller;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.parking.model.GarageSpot;
+import com.parking.model.Ticket;
+import com.parking.model.Vehicle;
 import com.parking.repository.SpotRepository;
 
 public class GarageController {
@@ -8,5 +14,17 @@ public class GarageController {
 
     public GarageController(SpotRepository spotRepository) {
         this.spotRepository = spotRepository;
+    }
+
+    public Ticket enterCar(Vehicle vehicle) {
+        // Ask repo for spots
+        List<GarageSpot> availableSpots = spotRepository.findAvailableSpots();
+
+        if (!availableSpots.isEmpty()) {
+            GarageSpot spot = availableSpots.get(0); // Take the first one
+            spot.occupy(vehicle); // We park the car
+            return new Ticket(LocalDateTime.now()); // Return receipt
+        }
+        return null;
     }
 }
