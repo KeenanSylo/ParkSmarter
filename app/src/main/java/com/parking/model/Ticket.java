@@ -1,6 +1,7 @@
 package com.parking.model;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Ticket {
@@ -38,5 +39,12 @@ public class Ticket {
             throw new IllegalStateException("Ticket is already paid");
         }
         this.isPaid = true;
+    }
+
+    public double calculatePrice(LocalDateTime exitTime, double hourlyRate) {
+        // Calculate full hours between entry and exit
+        long hours = ChronoUnit.HOURS.between(entryTime, exitTime);
+        
+        return hours * hourlyRate;
     }
 }
