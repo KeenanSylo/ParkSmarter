@@ -79,7 +79,6 @@ class GarageSpotTest {
 
     @Test
     void shouldStoreTicketWhenOccupying() {
-        // ARRANGE
         GarageSpot spot = new GarageSpot(1);
         Vehicle car = new Vehicle("ABC-123", "Ford", "Mustang", "Red", false);
         Ticket ticket = new Ticket(java.time.LocalDateTime.now());

@@ -4,6 +4,7 @@ public class GarageSpot {
     private final int id;
     private Vehicle parkedVehicle;
     private final boolean hasCharger;
+    private Ticket currentTicket;
 
     public GarageSpot(int id, boolean hasCharger) {
         this.id = id;
@@ -15,6 +16,10 @@ public class GarageSpot {
         this(id, false);
     }
 
+    public Ticket getTicket() {
+        return currentTicket;
+    }
+
     public int getId() {
         return id;
     }
@@ -23,12 +28,17 @@ public class GarageSpot {
         return parkedVehicle == null;
     }
 
-    public boolean occupy(Vehicle vehicle) {
+    public boolean occupy(Vehicle vehicle, Ticket ticket) {
         if (this.parkedVehicle != null) {
-            return false; // Already occupied
+            return false;
         }
         this.parkedVehicle = vehicle;
-        return true; // Success
+        this.currentTicket = ticket; // Now we assign the ticket
+        return true;
+    }
+
+    public boolean occupy(Vehicle vehicle) {
+        return occupy(vehicle, null); 
     }
 
     public boolean vacate() {
@@ -36,6 +46,7 @@ public class GarageSpot {
             return false; // Already empty
         }
         this.parkedVehicle = null;
+        this.currentTicket = null; // Clear the ticket when vacating
         return true; // Success
     }
 
