@@ -1,4 +1,4 @@
-package com.parking;
+package com.parking.model;
 
 public class GarageSpot {
     private final int id;

@@ -1,4 +1,4 @@
-package com.parking;
+package com.parking.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
