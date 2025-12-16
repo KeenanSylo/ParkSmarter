@@ -42,6 +42,10 @@ public class Ticket {
     }
 
     public double calculatePrice(LocalDateTime exitTime, double hourlyRate) {
+        if (exitTime.isBefore(entryTime)) {
+            throw new IllegalArgumentException("Exit time cannot be before entry time");
+        }
+        
         // we get the total minutes between entry and exit
         long totalMinutes = ChronoUnit.MINUTES.between(entryTime, exitTime);
         

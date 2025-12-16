@@ -91,7 +91,7 @@ class TicketTest {
     }
 
     @Test
-    void shouldThrowException_WhenExitTimeIsBeforeEntryTime() {
+    void shouldThrowExceptionWhenExitTimeIsBeforeEntryTime() {
         LocalDateTime now = LocalDateTime.now();
         Ticket ticket = new Ticket(now);
         
