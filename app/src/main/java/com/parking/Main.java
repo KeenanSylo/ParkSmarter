@@ -4,7 +4,10 @@ import com.parking.controller.GarageController;
 import com.parking.model.GarageSpot;
 import com.parking.model.Vehicle;
 import com.parking.repository.InMemorySpotRepository;
+import com.parking.repository.RateRepository;
 import com.parking.repository.SpotRepository;
+import com.parking.service.PricingService;
+import com.parking.repository.StandardRateRepository;
 
 import java.util.Scanner;
 
@@ -13,8 +16,14 @@ public class Main {
     public static void main(String[] args) {
         // 1. WIRING: Create the dependencies
         // We need 5 spots for this demo
-        SpotRepository repo = new InMemorySpotRepository(5);
-        GarageController controller = new GarageController(repo);
+        SpotRepository spotRepo = new InMemorySpotRepository(5);
+        RateRepository rateRepo = new StandardRateRepository(); // <--- NEW!
+        
+        // 2. Inject Repo into Service
+        PricingService pricingService = new PricingService(rateRepo);
+
+        // 3. Inject Service into Controller
+        GarageController controller = new GarageController(spotRepo, pricingService);
         
         Scanner scanner = new Scanner(System.in);
 
