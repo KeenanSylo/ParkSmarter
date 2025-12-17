@@ -40,26 +40,4 @@ public class Ticket {
         }
         this.isPaid = true;
     }
-
-    public double calculatePrice(LocalDateTime exitTime, double hourlyRate) {
-        if (exitTime.isBefore(entryTime)) {
-            throw new IllegalArgumentException("Exit time cannot be before entry time");
-        }
-        
-        // we get the total minutes between entry and exit
-        long totalMinutes = ChronoUnit.MINUTES.between(entryTime, exitTime);
-        
-        // calculate whole hours
-        long hours = totalMinutes / 60;
-        
-        // check for remainder minutes
-        long remainder = totalMinutes % 60;
-        
-        // if there's any remainder, we round up to the next hour
-        if (remainder > 0) {
-            hours++;
-        }
-
-        return hours * hourlyRate;
-    }
 }

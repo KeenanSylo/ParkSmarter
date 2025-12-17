@@ -7,14 +7,16 @@ import com.parking.model.GarageSpot;
 import com.parking.model.Ticket;
 import com.parking.model.Vehicle;
 import com.parking.repository.SpotRepository;
+import com.parking.service.PricingService;
 
 public class GarageController {
     
     private final SpotRepository spotRepository;
-    private static final double ticketRate = 10.0;
+    private final PricingService pricingService;
 
-    public GarageController(SpotRepository spotRepository) {
+    public GarageController(SpotRepository spotRepository, PricingService pricingService) {
         this.spotRepository = spotRepository;
+        this.pricingService = pricingService;
     }
 
     public GarageSpot enterCar(Vehicle vehicle) {
@@ -39,17 +41,18 @@ public class GarageController {
 
         if (spot != null && !spot.isEmpty()) {
             double price = 0.0;
-            
             Ticket ticket = spot.getTicket();
             
-            if (ticket != null) { // calculate price only if ticket exists
-                price = ticket.calculatePrice(LocalDateTime.now(), ticketRate);
+            if (ticket != null) { 
+                price = pricingService.calculatePrice(
+                    ticket.getEntryTime(), 
+                    LocalDateTime.now()
+                );
             }
 
-            spot.vacate(); // vacate the spot
-            
+            spot.vacate();
             return price; 
         }
-        return -1.0; // Return -1 if spot was empty or invalid
+        return -1.0;
     }
 }
