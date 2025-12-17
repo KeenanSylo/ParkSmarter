@@ -1,7 +1,6 @@
 package com.parking.model;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Ticket {
