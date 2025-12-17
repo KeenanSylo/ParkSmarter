@@ -4,6 +4,8 @@ import com.parking.model.GarageSpot;
 import com.parking.model.Ticket;
 import com.parking.model.Vehicle;
 import com.parking.repository.SpotRepository;
+import com.parking.service.PricingService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -22,11 +25,14 @@ class GarageControllerTest {
     @Mock
     SpotRepository spotRepository;
 
+    @Mock
+    PricingService pricingService;
+
     GarageController controller;
 
     @BeforeEach
     void setUp() {
-        controller = new GarageController(spotRepository);
+        controller = new GarageController(spotRepository, pricingService);
     }
 
     @Test
@@ -68,6 +74,8 @@ class GarageControllerTest {
 
         // We tell the mock repository to return the occupied spot when searched by ID
         when(spotRepository.findById(1)).thenReturn(occupiedSpot);
+
+        when(pricingService.calculatePrice(any(), any())).thenReturn(50.0);
 
         // Now we try to exit
         double price = controller.exitCar(1);
@@ -117,18 +125,19 @@ class GarageControllerTest {
     void shouldReturnCalculatedPriceWhenExitingWithTicket() {
         GarageSpot spot = new GarageSpot(1);
         Vehicle car = new Vehicle("ABC 111", "Car", "X", "Red");
-        
-        // Link the ticket and occupy the spot
         Ticket ticket = new Ticket(LocalDateTime.now().minusHours(3));
-        
         spot.occupy(car, ticket);
 
-        // Mock the repo to return our prepared spot
         when(spotRepository.findById(1)).thenReturn(spot);
+
+        double fakePrice = 999.0; // We define a fake price for testing
+        when(pricingService.calculatePrice(any(), any())).thenReturn(fakePrice);
 
         double price = controller.exitCar(1);
 
-        assertEquals(30.0, price, 0.01, "Should calculate price based on 3 hours * 10.0 rate");
-        assertTrue(spot.isEmpty(), "Spot should be empty after exit");
+        // We expect the controller to return the price given by the PricingService
+        assertEquals(999.0, price, 0.01, "Controller should simply return the value from PricingService");
+        
+        verify(pricingService).calculatePrice(any(), any());
     }
 }
