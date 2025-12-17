@@ -11,8 +11,8 @@ public class StandardRateRepository implements RateRepository {
 
     // Constructor with custom rate
     public StandardRateRepository(double rate) {
-        if (rate < 0) {
-            throw new IllegalArgumentException("Rate cannot be negative");
+        if (rate <= 0) {
+            throw new IllegalArgumentException("Rate cannot be zero or negative");
         }
         this.rate = rate;
     }
