@@ -31,4 +31,11 @@ class StandardRateRepositoryTest {
             new StandardRateRepository(-10.0);
         }, "Should not allow negative rates");
     }
+
+    @Test
+    void shouldThrowExceptionForZeroRate() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new StandardRateRepository(0.0);
+        }, "Rate cannot be zero (Free parking not allowed)");
+    }
 }
