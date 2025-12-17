@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
@@ -140,5 +141,27 @@ class GarageControllerTest {
         assertEquals(999.0, price, 0.01, "Controller should simply return the value from PricingService");
         
         verify(pricingService).calculatePrice(any(), any());
+    }
+
+    @Test
+    void shouldCalculatePriceForSpecificExitTime() {
+        GarageSpot spot = new GarageSpot(1);
+        Ticket ticket = new Ticket(LocalDateTime.now().minusHours(5)); // I entered 5 hours ago
+        spot.occupy(new Vehicle("ABC 123", "Car", "X", "Red"), ticket);
+
+        when(spotRepository.findById(1)).thenReturn(spot);
+        
+        // We simulate a time 10 hours in the future
+        LocalDateTime futureExitTime = LocalDateTime.now().plusHours(10);
+        
+        // I basically tell the mock pricing service to return 100.0 when called
+        when(pricingService.calculatePrice(any(), any())).thenReturn(100.0);
+
+        double price = controller.exitCar(1, futureExitTime);
+
+        assertEquals(100.0, price);
+        
+        // verify that the pricing service was called with the correct times
+        verify(pricingService).calculatePrice(eq(ticket.getEntryTime()), eq(futureExitTime));
     }
 }
