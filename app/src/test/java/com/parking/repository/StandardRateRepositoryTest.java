@@ -24,4 +24,11 @@ class StandardRateRepositoryTest {
 
         assertEquals(50.0, rate, "Should return the rate set in constructor");
     }
+
+    @Test
+    void shouldThrowExceptionForNegativeRate() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new StandardRateRepository(-10.0);
+        }, "Should not allow negative rates");
+    }
 }
