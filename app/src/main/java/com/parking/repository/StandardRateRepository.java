@@ -9,8 +9,11 @@ public class StandardRateRepository implements RateRepository {
         this.rate = 20.0;
     }
 
-    // for custom rate
+    // Constructor with custom rate
     public StandardRateRepository(double rate) {
+        if (rate < 0) {
+            throw new IllegalArgumentException("Rate cannot be negative");
+        }
         this.rate = rate;
     }
 
