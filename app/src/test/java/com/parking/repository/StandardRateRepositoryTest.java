@@ -14,4 +14,14 @@ class StandardRateRepositoryTest {
 
         assertEquals(20.0, rate, "Default rate should be 20.0");
     }
+
+    @Test
+    void shouldReturnConfiguredRate() {
+        // We want a constructor that can takes a double
+        RateRepository repo = new StandardRateRepository(50.0);
+
+        double rate = repo.getHourlyRate();
+
+        assertEquals(50.0, rate, "Should return the rate set in constructor");
+    }
 }
