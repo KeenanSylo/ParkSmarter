@@ -36,7 +36,13 @@ public class GarageController {
         return spot;
     }
 
+    // this original method without exitTime parameter
     public double exitCar(int spotId) {
+        return exitCar(spotId, LocalDateTime.now());
+    }
+
+    // new method with exitTime parameter 
+    public double exitCar(int spotId, LocalDateTime exitTime) {
         GarageSpot spot = spotRepository.findById(spotId);
 
         if (spot != null && !spot.isEmpty()) {
@@ -44,9 +50,10 @@ public class GarageController {
             Ticket ticket = spot.getTicket();
             
             if (ticket != null) { 
+                // now i use exitTime to calculate price
                 price = pricingService.calculatePrice(
                     ticket.getEntryTime(), 
-                    LocalDateTime.now()
+                    exitTime 
                 );
             }
 

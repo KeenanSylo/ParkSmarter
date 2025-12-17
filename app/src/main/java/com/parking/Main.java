@@ -9,20 +9,18 @@ import com.parking.repository.SpotRepository;
 import com.parking.service.PricingService;
 import com.parking.repository.StandardRateRepository;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        // 1. WIRING: Create the dependencies
-        // We need 5 spots for this demo
+        // I use 5 spots for this demo
         SpotRepository spotRepo = new InMemorySpotRepository(5);
-        RateRepository rateRepo = new StandardRateRepository(); // <--- NEW!
+        RateRepository rateRepo = new StandardRateRepository();
         
-        // 2. Inject Repo into Service
         PricingService pricingService = new PricingService(rateRepo);
 
-        // 3. Inject Service into Controller
         GarageController controller = new GarageController(spotRepo, pricingService);
         
         Scanner scanner = new Scanner(System.in);
@@ -66,7 +64,7 @@ public class Main {
         try {
             Vehicle car = new Vehicle(plate, brand, model, "Unknown");
 
-            // 2. If we get here, the car is valid. Park it.
+            // If we get here, the car is valid. Park it.
             GarageSpot spot = controller.enterCar(car);
 
             if (spot != null) {
@@ -88,14 +86,34 @@ public class Main {
         try {
             int spotId = Integer.parseInt(scanner.nextLine());
             
-            // This returns a double (which is price) based on your latest Controller code
-            double price = controller.exitCar(spotId);
+            // this feature allow us to simulate time passage
+            System.out.print("Simulate hours passed? (0 for real-time): ");
+            String hourInput = scanner.nextLine();
+            int hoursPassed = 0;
+            
+            try {
+                hoursPassed = Integer.parseInt(hourInput);
+            } catch (NumberFormatException ignored) {
+                // If they type junk, we assume 0
+            }
+
+            double price;
+            
+            if (hoursPassed > 0) {
+                // we cheat it by creating a time in the future
+                LocalDateTime futureTime = LocalDateTime.now().plusHours(hoursPassed);
+                price = controller.exitCar(spotId, futureTime);
+            } else {
+                // Normal exit
+                price = controller.exitCar(spotId);
+            }
+            // ---------------------------
 
             if (price >= 0) {
                 System.out.println("Car exited successfully.");
                 System.out.println("Please pay: " + price + " SEK");
             } else {
-                System.out.println("Failed to exit car. Check Spot ID or if the spot is occupied.");
+                System.out.println("Failed to exit car. Check Spot ID.");
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid number format.");
