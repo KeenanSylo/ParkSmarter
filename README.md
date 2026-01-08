@@ -1,6 +1,6 @@
 # ParkSmarter
 
-A parking garage management system that handles vehicle parking, ticketing, and pricing. Built with Java and Gradle, featuring comprehensive unit tests with JaCoCo coverage.
+A parking garage management system that handles vehicle parking, ticketing, and pricing. Built with Java and Gradle, featuring unit tests with Jacoco coverage.
 
 ## the features
 
